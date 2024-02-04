@@ -62,25 +62,25 @@
       event.preventDefault(); // default form submission
       
       //  user input
-      var first_name = document.getElementById('firstName').value;
-      var last_name = document.getElementById('lastName').value;
+      var firstName = document.getElementById('firstName').value;
+      var lastName = document.getElementById('lastName').value;
       var street = document.getElementById('street').value;
       var address = document.getElementById('address').value;
       var city = document.getElementById('city').value;
       var state = document.getElementById('state').value;
       var email = document.getElementById('email').value;
-      var phone = document.getElementById('phoneNumber').value;
+      var phoneNumber = document.getElementById('phoneNumber').value;
 
       // Create customer object
       var customer = {
-        first_name: first_name,
-        last_name: last_name,
+        firstName: firstName,
+        lastName: lastName,
         street: street,
         address: address,
         city: city,
         state: state,
         email: email,
-        phone: phone
+        phoneNumber: phoneNumber
       };
 
       // Retrieve the bearer token from cookies
@@ -115,7 +115,7 @@
       .catch(error => {
         console.error('Error adding customer:', error);
         // Handle error as needed
-        alert('Customer with the same email already exists in the database');
+        alert('Failed to add customer. Please try again.');
       });
     });
 

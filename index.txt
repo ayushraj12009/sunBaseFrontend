@@ -41,7 +41,7 @@
                 
       <button type="button" class="btn btn-primary" onclick="window.location.href='add_customer.html'">Add Customer</button>
 
-      <button type="button" class="btn btn-secondary" onclick="syncCustomers()">Sync</button>
+      <button type="button" class="btn btn-secondary" onclick="fetchCustomers()">Sync</button>
         </div>
       </div>
 
@@ -50,7 +50,6 @@
       <thead>
         <tr id="tableHeaderRow">
           <th>Customer ID</th>
-          <th>UUID</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Street</th>
@@ -141,25 +140,25 @@
 
       // Get user input
       var customerId = document.getElementById('editCustomerId').value;
-      var first_name = document.getElementById('editFirstName').value;
-      var last_name = document.getElementById('editLastName').value;
+      var firstName = document.getElementById('editFirstName').value;
+      var lastName = document.getElementById('editLastName').value;
       var street = document.getElementById('editStreet').value;
       var address = document.getElementById('editAddress').value;
       var city = document.getElementById('editCity').value;
       var state = document.getElementById('editState').value;
       var email = document.getElementById('editEmail').value;
-      var phone = document.getElementById('editPhoneNumber').value;
+      var phoneNumber = document.getElementById('editPhoneNumber').value;
 
       // Create customer object
       var customer = {
-        first_name: first_name,
-        last_name: last_name,
+        firstName: firstName,
+        lastName: lastName,
         street: street,
         address: address,
         city: city,
         state: state,
         email: email,
-        phone: phone
+        phoneNumber: phoneNumber
       };
 
       // Make PUT request to API to update customer data
@@ -186,29 +185,6 @@
         alert('Failed to update customer. Please try again.');
       });
     });
-
-    //Funtion 
-    function syncCustomers(){
-      fetch(`http://localhost:8080/home/api/customers/search/sunbase`, {
-        headers: {
-          'Authorization': 'Bearer ' + token
-        }
-      })
-      .then(response => {
-       
-        return response.json();
-      })
-      .then(customers => {
-        console.log(customers)
-       // populateCustomerTable({content:customers});
-       fetchCustomers();
-      })
-      .catch(error => {
-        console.error('Error sync customers:', error);
-        // Handle error as needed
-        alert('Failed to sync customers. Please try again.');
-      });
-    }
 
        // Function to search for customers
        function searchCustomers() {
@@ -371,14 +347,14 @@ tableBody.appendChild(row);
 
     // Fill the form fields with customer data
     document.getElementById('editCustomerId').value = customer.customerId;
-    document.getElementById('editFirstName').value = customer.first_name;
-    document.getElementById('editLastName').value = customer.last_name;
+    document.getElementById('editFirstName').value = customer.firstName;
+    document.getElementById('editLastName').value = customer.lastName;
     document.getElementById('editStreet').value = customer.street;
     document.getElementById('editAddress').value = customer.address;
     document.getElementById('editCity').value = customer.city;
     document.getElementById('editState').value = customer.state;
     document.getElementById('editEmail').value = customer.email;
-    document.getElementById('editPhoneNumber').value = customer.phone;
+    document.getElementById('editPhoneNumber').value = customer.phoneNumber;
 
     // Show the modal
     $('#editCustomerModal').modal('show');
